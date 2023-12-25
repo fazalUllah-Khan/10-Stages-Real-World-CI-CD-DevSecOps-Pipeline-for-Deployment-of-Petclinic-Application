@@ -515,4 +515,6 @@ Lastly, do not forget to terminate the AWS EC2 Instance.
 
 Resources Used — https://www.youtube.com/watch?v=Hen2biH2BSI
 
-Reference: https://github.com/writetoritika/Petclinic 
+Reference: 
+https://github.com/fazalUllah-Khan/Petclinic 
+https://github.com/writetoritika/Petclinic 
