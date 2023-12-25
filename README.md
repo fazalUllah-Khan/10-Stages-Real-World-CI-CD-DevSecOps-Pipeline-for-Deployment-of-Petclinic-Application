@@ -31,7 +31,9 @@ Step 10 — Terminate the AWS EC2 Instance
 References
 
 Now, lets get started and dig deeper into each of these steps :-
+
 Step 1 — Launch an AWS T2 Large Instance. Use the image as Ubuntu. You can create a new key pair or use an existing one. Enable HTTP and HTTPS settings in the Security Group.
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/2e02c791-2656-4f1b-bdec-cb01b56b7899)
 
 
 Step 2 — Install Jenkins, Docker and Trivy
@@ -59,18 +61,23 @@ sudo systemctl status jenkins
 sudo cat  /var/lib/jenkins/secrets/initialAdminPassword
 Once Jenkins is installed, you will need to go to your AWS EC2 Security Group and open Inbound Port 8080, since Jenkins works on Port 8080.
 
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/69fe3a48-6449-4fa5-aa55-b726b215c3c2)
+
 
 Now, grab your Public IP Address
 
 <EC2 Public IP Address:8080>
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 Unlock Jenkins using an administrative password and install the required plugins.
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/d8cd98f1-31ca-4d7b-8363-201755c9418f)
 
 
 Jenkins will now get installed and install all the libraries.
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/dad76ae1-10b2-4fc1-a821-ba96fcd0f967)
 
 
 Jenkins Getting Started Screen
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/ba4a717a-38a1-47c5-8046-d9d07090d0be)
 
 
 2B — Install Docker
@@ -81,11 +88,16 @@ sudo usermod -aG docker $USER
 sudo chmod 777 /var/run/docker.sock 
 sudo docker ps
 After the docker installation, we create a sonarqube container (Remember added 9000 port in the security group)
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/8440b822-315e-4e13-91b4-6edc45746c94)
 
 
 docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
 
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/6d6eaa70-6af9-4090-bd61-6fc79caa3860)
 
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/272f0241-74ae-48d5-8ddd-90b4f3f7efca)
+
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/cf8a475f-08e2-486a-915e-65c57e6968d1)
 
 2C — Install Trivy
 
@@ -119,6 +131,7 @@ Goto Manage Jenkins → Tools → Install JDK and Maven3 → Click on Apply and 
 3C — Create a Job
 
 Label it as Real-World CI-CD, click on Pipeline and Ok.
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/085fb1a4-5810-4b64-a3c2-d4bcb6d6e36d)
 
 
 Enter this in Pipeline Script,
@@ -153,22 +166,27 @@ pipeline {
      }
 }
 The stage view would look like this,
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/070e0f4f-d04f-47d8-a7d2-f4d22e024ad6)
 
 
 Step 4 — Configure Sonar Server in Manage Jenkins
 
 Grab the Public IP Address of your EC2 Instance, Sonarqube works on Port 9000 , sp <Public IP>:9000. Goto your Sonarqube Server. Click on Administration → Security → Users → Click on Tokens and Update Token → Give it a name → and click on Generate Token
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/f69a7bd1-b565-4aac-a549-c80c65b9b73c)
 
 
 Click on Update Token
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/070149d3-5f9a-4b30-b8da-59440cb14a30)
 
 
 Copy this Token
 
 Goto Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/a06d04db-47aa-4d96-8636-6e894c492e3d)
 
 
 Now, goto Dashboard → Manage Jenkins → Configure System
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/5042f94e-a2e9-4765-8332-30fcde41ca87)
 
 
 Click on Apply and Save
@@ -178,6 +196,7 @@ Configure System option is used in Jenkins to configure different server
 Global Tool Configuration is used to configure different tools that we install using Plugins
 
 We will install sonar-scanner in tools.
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/13a57c56-5b02-446a-a8e7-c0427b0d8d31)
 
 
 Lets goto our Pipeline and add Sonar-qube Stage in our Pipeline Script
@@ -219,9 +238,11 @@ pipeline {
      }
 }
 Click on Build now, you will see the stage view like this
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/5a370098-958f-48fa-82ef-40a19f653654)
 
 
 To see the report, you can goto Sonarqube Server and goto Projects.
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/cb9b0548-93e9-40b0-8b6c-3c6395e6b6d0)
 
 
 You can see the report has been generated and the status shows as passed. You can see that there are 15K lines. To see detailed report, you can go to issues.
@@ -229,11 +250,13 @@ You can see the report has been generated and the status shows as passed. You ca
 Step 5 — Install OWASP Dependency Check Plugins
 
 GotoDashboard → Manage Jenkins → Plugins → OWASP Dependency-Check. Click on it and install without restart.
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/8eb8808f-fbf4-4926-a2a6-5073b8138e53)
 
 
 First, we configured Plugin and next we have to configure Tool
 
 Goto Dashboard → Manage Jenkins → Tools →
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/e4faa342-efc0-4093-ae47-46b1577a7843)
 
 
 Click on apply and Save here.
@@ -313,9 +336,11 @@ pipeline {
     }
 }
 The stage view would look like this,
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/4d02bd18-a4b1-4bd8-b3a4-63426aec31ab)
 
 
 You will see that in status, a graph will also be generated
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/94db410d-2b09-4e6b-b009-50d1ec1c7d3b)
 
 
 Step 6 — Docker Image Build and Push
@@ -330,9 +355,11 @@ docker-build-step
 and click on install without restart
 
 Now, goto Dashboard → Manage Jenkins → Tools →
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/344a6de3-b865-44b3-8c6e-3cca36f2c354)
 
 
 Add DockerHub Username and Password under Global Credentials
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/fb4ae866-37d9-430d-99c6-878c42b7ca84)
 
 
 Add this stage in Pipeline Script
@@ -351,15 +378,16 @@ Add this stage in Pipeline Script
             }
         }
 You will see the output like below,
-
-
-Now, when you do
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/e2450831-4ba1-43a6-aa9c-5c0e54df0d11)
+\Now, when you do
 
 docker images
 You will see this output
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/3ab5a362-caba-4755-b585-6fb94ee35ba3)
 
 
 When you log in to Dockerhub, you will see a new image is created
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/0ee36c9d-8220-4a48-8c03-13504d34a8f5)
 
 
 Step 7 — Deploy image using Docker
@@ -372,6 +400,7 @@ stage("Deploy Using Docker"){
             }
         }
 You will see the Stage View like this,
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/30e4b236-f6e5-4f0f-9979-a1b4277b6f8a)
 
 
 Step 8 — Install Tomcat on Port 8083 and finally deploy on Apache Tomcat using groovy pipeline script mentioned
@@ -413,6 +442,7 @@ comment:
 sudo stopTomcat
 sudo startTomcat
 SincePort 8080 is being used by Jenkins, we have used Port 8083 to host Tomcat Server
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/14ccfd32-eb0b-4a1f-aecf-99c50eb659c1)
 
 
 Add this stage to your Pipeline script
@@ -503,11 +533,15 @@ pipeline {
     }
 }
 And you can access your application on Port 8083. This is a Real World Application that has all Functional Tabs.
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/b414132b-e66f-4f38-807a-d4d53d40eebc)
 
 
 Step 9 — Access the Real World Application
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/c82f7057-c940-427c-acf0-3c18d87775a8)
 
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/a696873d-74c0-4630-8898-b14458b4f5c6)
 
+![image](https://github.com/fazalUllah-Khan/10-Stages-Real-World-CI-CD-DevSecOps-Pipeline-for-Deployment-of-Petclinic-Application/assets/148821704/dcac6102-48d4-48fd-819c-f288233924c0)
 
 
 Step 10 — Terminate the AWS EC2 Instance
