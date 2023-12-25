@@ -514,3 +514,5 @@ Step 10 — Terminate the AWS EC2 Instance
 Lastly, do not forget to terminate the AWS EC2 Instance.
 
 Resources Used — https://www.youtube.com/watch?v=Hen2biH2BSI
+
+Reference: https://github.com/writetoritika/Petclinic 
