@@ -7,6 +7,7 @@ we will be deploying a Pet Clinic Java Based Application. This is an everyday us
 We will be deploying our application in two ways, using Docker Container and other is using Tomcat Server.
 
 Steps:-
+
 Step 1 — Create an Ubuntu T2 Large Instance
 
 Step 2 — Install Jenkins, Docker and Trivy. Create a Sonarqube Container using Docker.
